@@ -1,0 +1,5 @@
+/* Login background image styles */
+/* No login background by default; place a decorative image in `public/` and
+	 add a `.login-card` class with `background-image` rules if you want to use
+	 a custom uploaded asset. Example in README or follow instructions below. */
+
