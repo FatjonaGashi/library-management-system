@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { BookOpen, Search, Plus, Edit2, Trash2, Users, BarChart3, Sparkles, LogOut, User } from 'lucide-react';
 import { processAIQuery, generateInsights, generateRecommendations } from './ai-utils';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import api from './services/api';
 import BookForm from './components/BookForm';
+// eslint-disable-next-line no-unused-vars
 import AIQuery from './components/AIQuery';
 import StatCards from './components/StatCards';
 import Profile from './components/Profile';
+/* eslint-disable no-unused-vars */
+
 
 export default function LibraryManagementSystem() {
   const [users, setUsers] = useState([
@@ -119,33 +123,25 @@ export default function LibraryManagementSystem() {
   };
 
   const handleAddBook = () => {
-    const newBook = {
-      ...formData,
-      pages: parseInt(formData.pages, 10) || 0,
-      price: parseFloat(formData.price) || 0
-    };
-    if (!currentUser) {
-      alert('You must be logged in to add a book');
-      return;
-    }
-    if (!newBook.title || !newBook.author) {
-      alert('Please provide a book title and author.');
-      return;
-    }
+  if (!currentUser) return alert('You must be logged in to add a book');
+  if (!formData.title || !formData.author) return alert('Title and author required');
 
-    (async () => {
-      try {
-        const created = await api.books.create(newBook);
-        setBooks(prev => [...prev, created]);
-      } catch (err) {
-        const fallbackBook = { id: books.length + 1, userId: currentUser?.id || null, ...newBook };
-        setBooks(prev => [...prev, fallbackBook]);
-      } finally {
-        setFormData({});
-        setView('dashboard');
-      }
-    })();
+  const newBook = {
+    id: books.length + 1,
+    userId: currentUser.id,
+    title: formData.title,
+    author: formData.author,
+    genre: formData.genre || '',
+    status: formData.status || 'To Read',
+    pages: parseInt(formData.pages, 10) || 0,
+    price: parseFloat(formData.price) || 0
   };
+
+  setBooks(prev => [...prev, newBook]);
+  setFormData({});
+  setView('dashboard');
+};
+
 
   const handleUpdateBook = () => {
     const updatedFields = {

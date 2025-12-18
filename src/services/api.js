@@ -1,33 +1,33 @@
-// Use relative '/api' by default so CRA proxy works in development and tests
+// api.js
+
+// Base API URL
 const API_BASE_URL = process.env.REACT_APP_API_URL || '/api';
 
-// Helper function to get auth headers
-const getAuthHeaders = () => {
+// Get default headers (with optional auth)
+const getHeaders = () => {
   const token = localStorage.getItem('token');
   return {
     'Content-Type': 'application/json',
-    ...(token && { Authorization: `Bearer ${token}` })
+    ...(token && { Authorization: `Bearer ${token}` }),
   };
 };
 
-// Helper function to handle API responses
+// Handle API responses
 const handleResponse = async (response) => {
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({ message: 'An error occurred' }));
-    throw new Error(error.message || `HTTP error! status: ${response.status}`);
-  }
-  return response.json();
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.message || `HTTP error ${response.status}`);
+  return data;
 };
 
-// Auth API
-export const authAPI = {
+// --- Auth API ---
+const authAPI = {
   login: async (email, password) => {
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    const res = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      headers: getHeaders(),
+      body: JSON.stringify({ email, password }),
     });
-    const data = await handleResponse(response);
+    const data = await handleResponse(res);
     if (data.token) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
@@ -36,12 +36,12 @@ export const authAPI = {
   },
 
   register: async (name, email, password) => {
-    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+    const res = await fetch(`${API_BASE_URL}/auth/register`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password })
+      headers: getHeaders(),
+      body: JSON.stringify({ name, email, password }),
     });
-    const data = await handleResponse(response);
+    const data = await handleResponse(res);
     if (data.token) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
@@ -49,17 +49,14 @@ export const authAPI = {
     return data;
   },
 
-  // Update profile (server-supported endpoint)
   update: async (userData) => {
-    const response = await fetch(`${API_BASE_URL}/auth/update`, {
+    const res = await fetch(`${API_BASE_URL}/auth/update`, {
       method: 'PUT',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(userData)
+      headers: getHeaders(),
+      body: JSON.stringify(userData),
     });
-    const data = await handleResponse(response);
-    if (data.user) {
-      localStorage.setItem('user', JSON.stringify(data.user));
-    }
+    const data = await handleResponse(res);
+    if (data.user) localStorage.setItem('user', JSON.stringify(data.user));
     return data;
   },
 
@@ -69,91 +66,41 @@ export const authAPI = {
   },
 
   getCurrentUser: () => {
-    const userStr = localStorage.getItem('user');
+    const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    if (userStr && token) {
-      return { ...JSON.parse(userStr), token };
-    }
-    return null;
-  }
+    return user && token ? { ...JSON.parse(user), token } : null;
+  },
 };
 
-// Books API
-export const booksAPI = {
-  getAll: async () => {
-    const response = await fetch(`${API_BASE_URL}/books`, {
-      headers: getAuthHeaders()
-    });
-    return handleResponse(response);
-  },
-
-  getById: async (id) => {
-    const response = await fetch(`${API_BASE_URL}/books/${id}`, {
-      headers: getAuthHeaders()
-    });
-    return handleResponse(response);
-  },
-
-  create: async (bookData) => {
-    const response = await fetch(`${API_BASE_URL}/books`, {
-      method: 'POST',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(bookData)
-    });
-    return handleResponse(response);
-  },
-
-  update: async (id, bookData) => {
-    const response = await fetch(`${API_BASE_URL}/books/${id}`, {
-      method: 'PUT',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(bookData)
-    });
-    return handleResponse(response);
-  },
-
-  delete: async (id) => {
-    const response = await fetch(`${API_BASE_URL}/books/${id}`, {
-      method: 'DELETE',
-      headers: getAuthHeaders()
-    });
-    return handleResponse(response);
-  }
+// --- Books API ---
+const booksAPI = {
+  getAll: () => fetch(`${API_BASE_URL}/books`, { headers: getHeaders() }).then(handleResponse),
+  getById: (id) => fetch(`${API_BASE_URL}/books/${id}`, { headers: getHeaders() }).then(handleResponse),
+  create: (bookData) =>
+    fetch(`${API_BASE_URL}/books`, { method: 'POST', headers: getHeaders(), body: JSON.stringify(bookData) }).then(handleResponse),
+  update: (id, bookData) =>
+    fetch(`${API_BASE_URL}/books/${id}`, { method: 'PUT', headers: getHeaders(), body: JSON.stringify(bookData) }).then(handleResponse),
+  delete: (id) => fetch(`${API_BASE_URL}/books/${id}`, { method: 'DELETE', headers: getHeaders() }).then(handleResponse),
 };
 
-// Users API (Admin only)
-export const usersAPI = {
-  getAll: async () => {
-    const response = await fetch(`${API_BASE_URL}/users`, {
-      headers: getAuthHeaders()
-    });
-    return handleResponse(response);
-  },
-
-  delete: async (id) => {
-    const response = await fetch(`${API_BASE_URL}/users/${id}`, {
-      method: 'DELETE',
-      headers: getAuthHeaders()
-    });
-    return handleResponse(response);
-  }
+// --- Users API ---
+const usersAPI = {
+  getAll: () => fetch(`${API_BASE_URL}/users`, { headers: getHeaders() }).then(handleResponse),
+  delete: (id) => fetch(`${API_BASE_URL}/users/${id}`, { method: 'DELETE', headers: getHeaders() }).then(handleResponse),
 };
 
-// AI API
-export const aiAPI = {
-  query: async (query) => {
-    const response = await fetch(`${API_BASE_URL}/ai/query`, {
-      method: 'POST',
-      headers: getAuthHeaders(),
-      body: JSON.stringify({ query })
-    });
-    return handleResponse(response);
-  }
+// --- AI API ---
+const aiAPI = {
+  query: (query) =>
+    fetch(`${API_BASE_URL}/ai/query`, { method: 'POST', headers: getHeaders(), body: JSON.stringify({ query }) }).then(handleResponse),
 };
 
-export default {
+// --- Export all APIs ---
+const apiService = {
   auth: authAPI,
   books: booksAPI,
   users: usersAPI,
-  ai: aiAPI
+  ai: aiAPI,
 };
+
+export default apiService;

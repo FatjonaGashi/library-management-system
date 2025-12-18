@@ -1,13 +1,11 @@
 import React from 'react';
-import { Sparkles, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 
 export default function AIQuery({ 
   aiQuery, 
   setAiQuery, 
   handleAIQuery, 
   aiResponse, 
-  users, 
-  books,
   useServerAI,
   setUseServerAI,
   loading 
@@ -19,6 +17,7 @@ export default function AIQuery({
     "How many books are completed?",
     "Which user has read the most pages?"
   ];
+
   return (
     <div>
       <div className="bg-white/70 backdrop-blur-sm p-6 rounded-2xl border border-white/10 shadow-sm mb-6">
@@ -55,6 +54,7 @@ export default function AIQuery({
             )}
           </button>
         </div>
+
         <div className="mt-3 flex items-center gap-2">
           <input
             id="use-server-ai"
@@ -65,19 +65,17 @@ export default function AIQuery({
           />
           <label htmlFor="use-server-ai">Use server AI</label>
         </div>
+
         <div className="mt-4 flex flex-wrap gap-2">
-          <button onClick={() => setAiQuery('Who owns the most books?')} className="text-sm bg-gray-100 px-3 py-1 rounded hover:bg-gray-200">
-            Who owns the most books?
-          </button>
-          <button onClick={() => setAiQuery('Show the five most expensive books')} className="text-sm bg-gray-100 px-3 py-1 rounded hover:bg-gray-200">
-            Most expensive books
-          </button>
-          <button onClick={() => setAiQuery('Books by genre')} className="text-sm bg-gray-100 px-3 py-1 rounded hover:bg-gray-200">
-            Books by genre
-          </button>
-          <button onClick={() => setAiQuery('Reading statistics')} className="text-sm bg-gray-100 px-3 py-1 rounded hover:bg-gray-200">
-            Reading statistics
-          </button>
+          {exampleQueries.map((query, idx) => (
+            <button
+              key={idx}
+              onClick={() => setAiQuery(query)}
+              className="text-sm bg-gray-100 px-3 py-1 rounded hover:bg-gray-200"
+            >
+              {query}
+            </button>
+          ))}
         </div>
       </div>
 
