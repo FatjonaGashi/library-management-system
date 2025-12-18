@@ -224,27 +224,6 @@ GET    /api/books/all      - Get all books (all users)
 **Fatjona Gashi**
 - Email: gashifatjona3@gmail.com
 - LinkedIn: [Fatjona Gashi](https://www.linkedin.com/in/fatjona-gashi-8489431b8/)
-
-## 🙏 Acknowledgments
-
-- React community for excellent documentation
-- MongoDB for powerful database capabilities
-- Express.js for robust backend framework
-- The open-source community for inspiration and tools
-
-## 🎯 Future Enhancements
-
-- [ ] Advanced ML-based book recommendations
-- [ ] Social features (book clubs, reading groups)
-- [ ] Reading progress tracking with page numbers
-- [ ] Export library data to PDF/Excel
-- [ ] Email notifications for reading reminders
-- [ ] Multi-language support (i18n)
-- [ ] Mobile app version (React Native)
-- [ ] Integration with Google Books API
-- [ ] Book cover image uploads
-- [ ] Reading statistics dashboard with charts
-
 ---
 
 **Made with ❤️ by Fatjona Gashi**
