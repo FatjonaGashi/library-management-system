@@ -1,70 +1,250 @@
-# Getting Started with Create React App
+# 📚 Library Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack library management application with AI-powered features including natural language queries, smart recommendations, and automated insights generation.
 
-## Available Scripts
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-18-green?logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-7-brightgreen?logo=mongodb)
+![Express](https://img.shields.io/badge/Express-4-lightgrey?logo=express)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-In the project directory, you can run:
+## 🌟 Features
 
-### `npm start`
+### Core Features
+- ✅ **User Authentication** - Secure JWT-based authentication with role-based access control
+- 📖 **Book Management** - Complete CRUD operations for personal library
+- 🔍 **Smart Search** - Filter and search through your book collection
+- 👥 **User Management** - Admin dashboard for managing users (admin only)
+- 📊 **Reading Status Tracking** - Track books as "To Read", "Reading", or "Completed"
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### AI-Powered Features
+- 🤖 **Natural Language Queries** - Ask questions in plain English
+  - "Who owns the most books?"
+  - "Show me the five most expensive books"
+  - "How many books are in the Fiction genre?"
+- 💡 **Smart Recommendations** - AI-powered book recommendations based on your reading history
+- 📈 **Automated Insights** - Real-time analytics and reading statistics
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📸 Screenshots
 
-### `npm test`
+### Login Page
+![Login](screenshots/login.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
 
-### `npm run build`
+### Add Book Form
+![Add Book](screenshots/add-book.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### AI Query
+![AI Query](screenshots/ai-query.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Insights
+![Insights](screenshots/insights.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Admin Dashboard
+![Admin](screenshots/admin.png)
 
-### `npm run eject`
+## 🛠️ Technology Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Frontend
+- **React 18** - Modern UI with functional components and hooks
+- **Tailwind CSS** - Utility-first styling
+- **Lucide React** - Beautiful icon library
+- **Axios** - HTTP client for API communication
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Backend
+- **Node.js** - JavaScript runtime
+- **Express.js** - Web application framework
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB ODM
+- **JWT** - Secure token-based authentication
+- **Bcrypt** - Password hashing
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Testing
+- **Jest** - JavaScript testing framework
+- **React Testing Library** - React component testing
+- **Supertest** - HTTP integration testing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🚀 Quick Start
 
-## Learn More
+### Prerequisites
+- Node.js 18+ installed
+- MongoDB installed and running
+- Git installed
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Installation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. **Clone the repository**
+```bash
+git clone https://github.com/FatjonaGashi/library-management-system.git
+cd library-management-system
+```
 
-### Code Splitting
+2. **Set up Backend**
+```bash
+cd backend
+npm install
+cp .env.example .env
+# Edit .env with your MongoDB URI and JWT secret
+npm run dev
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. **Set up Frontend**
+```bash
+cd ../frontend
+npm install
+npm start
+```
 
-### Analyzing the Bundle Size
+4. **Access the application**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 👤 Demo Accounts
 
-### Making a Progressive Web App
+### Admin Account
+- **Email:** admin@library.com
+- **Password:** admin123
+- **Access:** Full system access, user management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### User Account
+- **Email:** john@example.com
+- **Password:** user123
+- **Access:** Personal library management
 
-### Advanced Configuration
+## 📁 Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+library-management-system/
+├── frontend/
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   ├── services/       # API services
+│   │   ├── ai-utils.js     # AI processing utilities
+│   │   └── App.js          # Main application
+│   └── package.json
+├── backend/
+│   ├── models/             # MongoDB models
+│   ├── routes/             # API routes
+│   ├── middleware/         # Custom middleware
+│   ├── __tests__/          # Test files
+│   ├── server.js           # Express server
+│   └── package.json
+├── screenshots/            # Application screenshots
+├── README.md
+├── LICENSE
+├── DEMO_GUIDE.md
+└── .gitignore
+```
 
-### Deployment
+## 🧪 Testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+# Run backend tests
+cd backend
+npm test
 
-### `npm run build` fails to minify
+# Run frontend tests
+cd frontend
+npm test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Run with coverage
+npm test -- --coverage
+```
+
+## 🔐 Security Features
+
+- JWT token-based authentication
+- Password hashing with bcrypt (10 rounds)
+- Role-based access control (RBAC)
+- Protected API routes with middleware
+- Input validation and sanitization
+- CORS configuration for secure cross-origin requests
+
+## 🎯 AI Features Implementation
+
+### Natural Language Query Processing
+The system uses a custom NLP parser that:
+1. **Tokenizes** user queries into meaningful components
+2. **Identifies** query intent (count, search, compare, filter)
+3. **Extracts** relevant entities (books, genres, authors, users)
+4. **Executes** appropriate MongoDB queries
+5. **Formats** results in a user-friendly manner
+
+### Recommendation Engine
+Uses collaborative filtering and content-based algorithms:
+- Analyzes user reading patterns
+- Identifies genre preferences
+- Suggests similar books based on completed reads
+- Considers reading completion rates
+- Provides personalized recommendations
+
+### Insights Generation
+Automated analytics that provide:
+- Total book counts and categorization
+- Reading progress statistics
+- Genre distribution analysis
+- Most active readers (admin view)
+- Price analytics and budget tracking
+
+## 📝 API Documentation
+
+### Authentication Endpoints
+```
+POST /api/auth/register    - Register new user
+POST /api/auth/login       - User login
+GET  /api/auth/me          - Get current user
+```
+
+### Book Endpoints
+```
+GET    /api/books          - Get user's books
+POST   /api/books          - Add new book
+GET    /api/books/:id      - Get single book
+PUT    /api/books/:id      - Update book
+DELETE /api/books/:id      - Delete book
+```
+
+### AI Endpoints
+```
+POST /api/ai/query              - Natural language query
+GET  /api/ai/recommendations    - Get personalized recommendations
+GET  /api/ai/insights           - Get reading insights
+```
+
+### Admin Endpoints (Admin Only)
+```
+GET    /api/users          - Get all users
+DELETE /api/users/:id      - Delete user
+GET    /api/books/all      - Get all books (all users)
+```
+## 👩‍💻 Author
+
+**Fatjona Gashi**
+- Email: gashifatjona3@gmail.com
+- LinkedIn: [Fatjona Gashi](https://www.linkedin.com/in/fatjona-gashi-8489431b8/)
+
+## 🙏 Acknowledgments
+
+- React community for excellent documentation
+- MongoDB for powerful database capabilities
+- Express.js for robust backend framework
+- The open-source community for inspiration and tools
+
+## 🎯 Future Enhancements
+
+- [ ] Advanced ML-based book recommendations
+- [ ] Social features (book clubs, reading groups)
+- [ ] Reading progress tracking with page numbers
+- [ ] Export library data to PDF/Excel
+- [ ] Email notifications for reading reminders
+- [ ] Multi-language support (i18n)
+- [ ] Mobile app version (React Native)
+- [ ] Integration with Google Books API
+- [ ] Book cover image uploads
+- [ ] Reading statistics dashboard with charts
+
+---
+
+**Made with ❤️ by Fatjona Gashi**
